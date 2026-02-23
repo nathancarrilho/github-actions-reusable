@@ -21,7 +21,8 @@ on:
 jobs:
   create_github_issue:
     runs-on: ubuntu-latest
-    issues: write
+    permissions:
+      issues: write
     steps:
       - name: 📝 Criar GitHub Issue
         uses: peter-evans/create-issue-from-file@v5 
