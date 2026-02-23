@@ -2,6 +2,8 @@ name: Reusable - Criar Issue no Repositório 🚨
 
 on:
   workflow_call:
+    permissions:
+      issues: write 
     inputs:
       issue_title:
         description: 'Título completo do Issue a ser criado.'
@@ -15,8 +17,6 @@ on:
       issue_number:
         description: "O número do Issue criado."
         value: ${{ jobs.create_github_issue.outputs.issue_number }}
-    permissions:
-      issues: write 
 
 jobs:
   create_github_issue:
