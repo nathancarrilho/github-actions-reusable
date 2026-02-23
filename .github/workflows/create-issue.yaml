@@ -1,0 +1,34 @@
+name: Reusable - Criar Issue no Repositório 🚨
+
+on:
+  workflow_call:
+    inputs:
+      issue_title:
+        description: 'Título completo do Issue a ser criado.'
+        required: true
+        type: string
+      issue_body:
+        description: 'Corpo (descrição detalhada) do Issue a ser criado.'
+        required: true
+        type: string
+    outputs:
+      issue_number:
+        description: "O número do Issue criado."
+        value: ${{ jobs.create_github_issue.outputs.issue_number }}
+    permissions:
+      issues: write 
+
+jobs:
+  create_github_issue:
+    runs-on: ubuntu-latest
+    issues: write
+    steps:
+      - name: 📝 Criar GitHub Issue
+        uses: peter-evans/create-issue-from-file@v5 
+        with:
+          title: ${{ inputs.issue_title }}
+          content: ${{ inputs.issue_body }}
+          token: ${{ github.token }} 
+        id: created_issue 
+    outputs:
+      issue_number: ${{ steps.created_issue.outputs.issue-number }}
