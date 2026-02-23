@@ -27,7 +27,6 @@ jobs:
         with:
           title: ${{ inputs.issue_title }}
           content: ${{ inputs.issue_body }}
-          token: ${{ github.token }} 
-        id: created_issue 
+          token: ${{ github.token }}
     outputs:
       issue_number: ${{ steps.created_issue.outputs.issue-number }}
