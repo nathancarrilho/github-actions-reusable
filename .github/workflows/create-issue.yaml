@@ -18,10 +18,10 @@ jobs:
     permissions:
       issues: write
     steps:
-      - uses: nashmaniac/create-issue-action@v1.2
-        name: Create Issue Action
-        with:
-          title: ${{ inputs.issue_title }}
-          token: ${{secrets.GITHUB_TOKEN}}
-          assignees: ${{github.actor}}
-          body: ${{ inputs.issue_body }}
+      - name: Criar Issue no Repositório
+        run: |
+          curl -X POST \
+            -H "Accept: application/vnd.github+json" \
+            -H "Authorization: Bearer ${{ secrets.GITHUB_TOKEN }}" \
+            https://api.github.com/repos/${{ github.repository }}/issues \
+            -d "{\"title\":\"${{ inputs.issue_title }}\",\"body\":\"${{ inputs.issue_body }}\"}"
