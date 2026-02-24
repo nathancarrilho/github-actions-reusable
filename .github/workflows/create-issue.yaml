@@ -23,6 +23,7 @@ jobs:
       issues: write
     steps:
       - name: 📝 Criar GitHub Issue
+        id: created_issue
         uses: peter-evans/create-issue-from-file@v5 
         with:
           title: ${{ inputs.issue_title }}
