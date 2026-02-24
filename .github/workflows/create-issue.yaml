@@ -11,10 +11,6 @@ on:
         description: 'Corpo (descrição detalhada) do Issue a ser criado.'
         required: true
         type: string
-    outputs:
-      issue_number:
-        description: "O número do Issue criado."
-        value: ${{ jobs.create_github_issue.outputs.issue_number }}
 
 jobs:
   create_github_issue:
@@ -22,12 +18,10 @@ jobs:
     permissions:
       issues: write
     steps:
-      - name: 📝 Criar GitHub Issue
-        id: created_issue
-        uses: peter-evans/create-issue-from-file@v5 
+      - uses: nashmaniac/create-issue-action@v1.2
+        name: Create Issue Action
         with:
           title: ${{ inputs.issue_title }}
-          content: ${{ inputs.issue_body }}
-          token: ${{ github.token }}
-    outputs:
-      issue_number: ${{ steps.created_issue.outputs.issue-number }}
+          token: ${{secrets.GITHUB_TOKEN}}
+          assignees: ${{github.actor}}
+          body: ${{ inputs.issue_body }}
